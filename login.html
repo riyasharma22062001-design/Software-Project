@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Food Ordering App</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Arial', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; display: flex; align-items: center; justify-content: center; }
+        .container { background: white; border-radius: 15px; padding: 40px; box-shadow: 0 15px 40px rgba(0,0,0,0.2); width: 100%; max-width: 400px; }
+        header { text-align: center; color: #333; margin-bottom: 30px; }
+        h1 { font-size: 2em; margin-bottom: 10px; }
+        .back-link { color: #3498db; text-decoration: none; font-size: 0.9em; }
+        .back-link:hover { text-decoration: underline; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; font-size: 1em; }
+        button { width: 100%; padding: 12px; background: #3498db; color: white; border: none; border-radius: 25px; cursor: pointer; font-size: 1em; transition: background 0.3s; margin-top: 10px; }
+        button:hover { background: #2980b9; }
+        .error { color: #e74c3c; margin-top: 10px; display: none; }
+        .success { color: #27ae60; margin-top: 10px; display: none; }
+        @media (max-width: 768px) { .container { margin: 20px; padding: 30px 20px; } }
+    </style>
+</head>
+<body>
+    <div class="hero-section" style="text-align: center; margin-bottom: 30px;">
+        </div>
+        <div class="container">
+        <header>
+            <a href="index.html" class="back-link">&larr; Back to Menu</a>
+            <h1>🔐 Login</h1>
+        </header>
+        <form id="login-form">
+<input type="text" id="username" placeholder="Username" maxlength="15" required>
+<input type="password" id="password" placeholder="Password" maxlength="12" required>
+            <button type="submit">Login</button>
+            <div id="error-msg" class="error">Invalid username or password!</div>
+            <div id="success-msg" class="success">Login successful! Redirecting...</div>
+        </form>
+        <p style="text-align: center; margin-top: 20px; color: #666;">
+            Don't have an account? <a href="register.html" style="color: #3498db;">Sign Up</a>
+        </p>
+    </div>
+
+    <script>
+        // Demo users
+        let users = JSON.parse(localStorage.getItem('users')) || [{ username: 'test', password: '123', email: 'test@example.com' }];
+
+        function validateLogin(username, password) {
+            if (!username || !password) return 'Username and password required.';
+            if (username.length < 3) return 'Username min 3 chars.';
+            if (username.length > 15) return 'Username max 15 chars.';
+            if (password.length < 6) return 'Password min 6 chars.';
+            if (password.length > 12) return 'Password max 12 chars.';
+            return null;
+        }
+
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('error-msg');
+            const successMsg = document.getElementById('success-msg');
+
+            const valError = validateLogin(username, password);
+            if (valError) {
+                errorMsg.textContent = valError;
+                errorMsg.style.display = 'block';
+                successMsg.style.display = 'none';
+                return;
+            }
+
+            const user = users.find(u => u.username === username && u.password === password);
+            if (user) {
+                localStorage.setItem('currentUser', username);
+                successMsg.style.display = 'block';
+                errorMsg.style.display = 'none';
+                setTimeout(() => { window.location.href = 'index.html'; }, 1000);
+            } else {
+                errorMsg.textContent = 'Invalid username or password.';
+                errorMsg.style.display = 'block';
+                successMsg.style.display = 'none';
+            }
+        });
+
+    </script>
+</body>
+</html>
+

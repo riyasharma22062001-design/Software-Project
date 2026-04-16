@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Food Ordering App</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Arial', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; display: flex; align-items: center; justify-content: center; }
+        .container { background: white; border-radius: 15px; padding: 40px; box-shadow: 0 15px 40px rgba(0,0,0,0.2); width: 100%; max-width: 400px; }
+        header { text-align: center; color: #333; margin-bottom: 30px; }
+        h1 { font-size: 2em; margin-bottom: 10px; }
+        .back-link { color: #3498db; text-decoration: none; font-size: 0.9em; }
+        .back-link:hover { text-decoration: underline; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; font-size: 1em; }
+        button { width: 100%; padding: 12px; background: #27ae60; color: white; border: none; border-radius: 25px; cursor: pointer; font-size: 1em; transition: background 0.3s; margin-top: 10px; }
+        button:hover { background: #219a52; }
+        .error { color: #e74c3c; margin-top: 10px; display: none; }
+        .success { color: #27ae60; margin-top: 10px; display: none; }
+        @media (max-width: 768px) { .container { margin: 20px; padding: 30px 20px; } }
+    </style>
+</head>
+<body>
+    <div class="hero-section" style="text-align: center; margin-bottom: 30px;">
+        <div class="container">
+        <header>
+            <a href="index.html" class="back-link">&larr; Back to Menu</a>
+            <h1>📝 Register</h1>
+        </header>
+        <form id="register-form">
+<input type="text" id="reg-username" placeholder="Username" maxlength="15" required>
+            <input type="email" id="reg-email" placeholder="Email" required>
+<input type="password" id="reg-password" placeholder="Password" maxlength="12" required>
+            <input type="password" id="reg-confirm" placeholder="Confirm Password" required>
+            <button type="submit">Sign Up</button>
+            <div id="error-msg" class="error">Please fix errors: passwords don't match, or username taken!</div>
+            <div id="success-msg" class="success">Registration successful! Please login.</div>
+        </form>
+        <p style="text-align: center; margin-top: 20px; color: #666;">
+            Already have an account? <a href="login.html" style="color: #3498db;">Login</a>
+        </p>
+    </div>
+
+    <script>
+        // Load users
+        let users = JSON.parse(localStorage.getItem('users')) || [{ username: 'test', password: '123', email: 'test@example.com' }];
+
+        function validateEmail(email) {
+            // Allow alphabets, numbers, special chars before @, after domain
+            const re = /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+            return re.test(email);
+        }
+
+        function validateRegister(username, email, password) {
+            // Test case 1: empty fields
+            if (!username || !email || !password) return 'All fields are required.';
+            
+            // Test case 2: username too short
+            if (username.length < 3) return 'Username must be at least 3 characters.';
+            if (username.length > 15) return 'Username must be max 15 characters.';
+            
+            // Test case 4: invalid email
+            if (!validateEmail(email)) return 'Please enter a valid email address.';
+            
+            // Test case 5: password too short
+            if (password.length < 6) return 'Password must be at least 6 characters.';
+            if (password.length > 12) return 'Password must be max 12 characters.';
+            
+            // Test case 6: username exists
+            if (users.find(u => u.username === username)) return 'Username already taken. Please choose another.';
+            
+            return null;
+        }
+
+        document.getElementById('register-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('reg-username').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const password = document.getElementById('reg-password').value;
+            const confirm = document.getElementById('reg-confirm').value;
+
+            const errorMsg = document.getElementById('error-msg');
+            const successMsg = document.getElementById('success-msg');
+
+            if (password !== confirm) {
+                errorMsg.textContent = 'Passwords do not match!';
+                errorMsg.style.display = 'block';
+                successMsg.style.display = 'none';
+                return;
+            }
+
+            const valError = validateRegister(username, email, password);
+            if (valError) {
+                errorMsg.textContent = valError;
+                errorMsg.style.display = 'block';
+                successMsg.style.display = 'none';
+                return;
+            }
+
+            if (users.find(u => u.username === username)) {
+                errorMsg.textContent = 'Username already taken!';
+                errorMsg.style.display = 'block';
+                successMsg.style.display = 'none';
+                return;
+            }
+
+            // Register
+            users.push({ username, password, email });
+            localStorage.setItem('users', JSON.stringify(users));
+            successMsg.style.display = 'block';
+            errorMsg.style.display = 'none';
+            setTimeout(() => { window.location.href = 'login.html'; }, 1500);
+        });
+
+    </script>
+</body>
+</html>
+
