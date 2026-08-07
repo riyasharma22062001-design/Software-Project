@@ -18,9 +18,11 @@
         .error { color: #e74c3c; margin-top: 10px; display: none; }
         .success { color: #27ae60; margin-top: 10px; display: none; }
         @media (max-width: 768px) { .container { margin: 20px; padding: 30px 20px; } }
+        
     </style>
 </head>
 <body>
+    
     <div class="hero-section" style="text-align: center; margin-bottom: 30px;">
         <div class="container">
         <header>
@@ -40,7 +42,6 @@
             Already have an account? <a href="login.html" style="color: #3498db;">Login</a>
         </p>
     </div>
-
     <script>
         // Load users
         let users = JSON.parse(localStorage.getItem('users')) || [{ username: 'test', password: '123', email: 'test@example.com' }];
