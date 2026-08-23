@@ -18,10 +18,12 @@
         .error { color: #e74c3c; margin-top: 10px; display: none; }
         .success { color: #27ae60; margin-top: 10px; display: none; }
         @media (max-width: 768px) { .container { margin: 20px; padding: 30px 20px; } }
+
         
     </style>
 </head>
 <body>
+
     
     <div class="hero-section" style="text-align: center; margin-bottom: 30px;">
         <div class="container">
@@ -40,6 +42,7 @@
         </form>
         <p style="text-align: center; margin-top: 20px; color: #666;">
             Already have an account? <a href="login.html" style="color: #3498db;">Login</a>
+            
         </p>
     </div>
     <script>
@@ -52,6 +55,7 @@
             return re.test(email);
         }
 
+        
         function validateRegister(username, email, password) {
             // Test case 1: empty fields
             if (!username || !email || !password) return 'All fields are required.';
@@ -105,12 +109,14 @@
                 return;
             }
 
+            
             // Register
             users.push({ username, password, email });
             localStorage.setItem('users', JSON.stringify(users));
             successMsg.style.display = 'block';
             errorMsg.style.display = 'none';
             setTimeout(() => { window.location.href = 'login.html'; }, 1500);
+            
         });
 
     </script>
