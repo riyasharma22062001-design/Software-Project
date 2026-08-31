@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>   
+<head>  
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Food Ordering App</title>
@@ -18,8 +19,7 @@
         .error { color: #e74c3c; margin-top: 10px; display: none; }
         .success { color: #27ae60; margin-top: 10px; display: none; }
         @media (max-width: 768px) { .container { margin: 20px; padding: 30px 20px; } }
-    </style>
-    
+    </style>  
 </head>
 <body>
     <div class="hero-section" style="text-align: center; margin-bottom: 30px;">
@@ -51,8 +51,7 @@
             if (username.length > 15) return 'Username max 15 chars.';
             if (password.length < 6) return 'Password min 6 chars.';
             if (password.length > 12) return 'Password max 12 chars.';
-            return null;
-            
+            return null;      
         }
 
         document.getElementById('login-form').addEventListener('submit', (e) => {
