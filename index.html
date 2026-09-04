@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> 
-    
+<head>  
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Ordering App</title>
-    <style> 
-        
+    <style>    
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Arial', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
         .container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
@@ -184,17 +182,13 @@
             { id: 17, name: 'Combo Meal', category: 'Main Course', rating: 4.7, desc: 'Burger + Cola combo deal', price: 15.99, img: 'images/combo.jpg' }
         ];
 
-
-
-
         const categories = ['All', 'Starters', 'Main Course', 'Desserts', 'Drinks'];
 
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
         let currentFilter = 'All';
         let searchTerm = '';
-        let maxPrice = 20;
-
+        let maxPrice = 20
         document.getElementById('price-range').addEventListener('input', (e) => {
             maxPrice = e.target.value;
             document.getElementById('price-value').textContent = `$${maxPrice}`;
