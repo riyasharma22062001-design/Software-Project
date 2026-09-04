@@ -211,7 +211,6 @@
             event.target.classList.add('active');
             filterMenu();
         }
-
         function filterMenu() {
             const filteredFoods = foods.filter(food => 
                 food.category === currentFilter || currentFilter === 'All' &&
