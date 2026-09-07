@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>  
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Food Ordering App</title>
@@ -43,6 +44,7 @@
         </p>
     </div>
     <script>
+
         
         // Demo users
         let users = JSON.parse(localStorage.getItem('users')) || [{ username: 'test', password: '123', email: 'test@example.com' }];
@@ -69,6 +71,7 @@
                 errorMsg.style.display = 'block';
                 successMsg.style.display = 'none';
                 return;
+                
             }
 
             const user = users.find(u => u.username === username && u.password === password);
