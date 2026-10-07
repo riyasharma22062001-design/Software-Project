@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Ordering App</title>
     <style>  
-
         
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Arial', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
@@ -80,8 +79,7 @@
             border-radius: 15px;
             cursor: pointer;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);       
         }
         .hero-img:hover {
             transform: scale(1.05);
@@ -91,14 +89,12 @@
             text-align: center;
             color: white;
             margin: 20px 0 10px;
-            font-size: 1.5em;
-            
+            font-size: 1.5em;   
         }
         @media (max-width: 768px) {
             .hero-img { flex: 0 0 250px; height: 180px; }
             
-        }
-        
+        }   
     </style>
 </head>
 <body>
@@ -267,7 +263,6 @@
             btn.classList.add('animate-add');
             setTimeout(() => btn.classList.remove('animate-add'), 500);
         }
-
         function updateCart() {
             localStorage.setItem('cart', JSON.stringify(cart));
             const cartItems = document.getElementById('cart-items');
@@ -302,7 +297,6 @@
             clearBtn.style.display = 'block';
             checkoutBtn.style.display = 'block';
         }
-
         function changeQty(id, delta) {
             const item = cart.find(item => item.id === id);
             if (item) {
@@ -318,7 +312,6 @@
             cart = [];
             updateCart();
         }
-
         function checkout() {
             if (cart.length === 0) return alert('Cart is empty!');
             const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0) * 1.1;
@@ -356,8 +349,6 @@
             localStorage.removeItem('currentUser');
             updateAuthUI();
         });
-
-
 
         // Reviews logic
         let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
@@ -419,4 +410,3 @@
 
 </body>
 </html>
-
